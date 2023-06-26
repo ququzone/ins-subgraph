@@ -4,7 +4,9 @@
   "repository": "https://github.com/ququzone/ins-subgraph",
   "license": "MIT",
   "scripts": {
-    "codegen": "graph codegen --output-dir src/types/"
+    "codegen": "graph codegen --output-dir src/types/",
+    "build:mainnet": "graph build subgraph.yaml --network mainnet",
+    "build:testnet": "graph build subgraph.yaml --network testnet"
   },
   "devDependencies": {
     "@ensdomains/content-hash": "^2.5.3",

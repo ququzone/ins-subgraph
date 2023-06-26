@@ -1,0 +1,46 @@
+{
+    "mainnet": {
+        "INSRegistry": {
+            "address": "0xB98825A5cfbFe883c36e2Ac2D4179fc2C92B2bFc",
+            "startBlock": 24114600
+        },
+        "Resolver": {
+            "address": "0x41B9132D4661E016A09a61B314a1DFc0038CE3e8",
+            "startBlock": 24114600
+        },
+        "BaseRegistrar": {
+            "address": "0x41441D51Db3A91d744EE565B693989D0F47B9257",
+            "startBlock": 24114600
+        },
+        "IOTXRegistrarController": {
+            "address": "0x8aA6acF9BFeEE0243578305706766065180E68d4",
+            "startBlock": 24114600
+        },
+        "NameWrapper": {
+            "address": "0x26DEFAD6414321b13028A072a46D88400e94abb3",
+            "startBlock": 24114600
+        }
+    },
+    "testnet": {
+        "INSRegistry": {
+            "address": "0x845d8ccb0D92174B33AC9A876B65c49Ca4676685",
+            "startBlock": 20674600
+        },
+        "Resolver": {
+            "address": "0x919f2508389c59fe6E896f80c2B70ff53877942B",
+            "startBlock": 20674600
+        },
+        "BaseRegistrar": {
+            "address": "0x40d2FCBE5A396064b69333b12c26CB9F564010CF",
+            "startBlock": 20674600
+        },
+        "IOTXRegistrarController": {
+            "address": "0xcFF9867F5ac4b64b613641265262db7dB07Da067",
+            "startBlock": 20674600
+        },
+        "NameWrapper": {
+            "address": "0x92f0926350268a0147E36c4Dfbc4c72Eb11696cF",
+            "startBlock": 20674600
+        }
+    }
+}
