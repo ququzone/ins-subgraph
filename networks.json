@@ -1,5 +1,5 @@
 {
-    "mainnet": {
+    "iotex": {
         "INSRegistry": {
             "address": "0xB98825A5cfbFe883c36e2Ac2D4179fc2C92B2bFc",
             "startBlock": 24114600
@@ -21,7 +21,7 @@
             "startBlock": 24114600
         }
     },
-    "testnet": {
+    "iotex_testnet": {
         "INSRegistry": {
             "address": "0x845d8ccb0D92174B33AC9A876B65c49Ca4676685",
             "startBlock": 20674600

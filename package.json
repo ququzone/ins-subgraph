@@ -5,8 +5,12 @@
   "license": "MIT",
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
-    "build:mainnet": "graph build subgraph.yaml --network mainnet",
-    "build:testnet": "graph build subgraph.yaml --network testnet"
+    "build:iotex": "graph build subgraph.yaml --network iotex",
+    "build:iotex_testnet": "graph build subgraph.yaml --network iotex_testnet",
+    "create:iotex_testnet": "graph create testnet/ins --node https://rpc.graph.mainnet.iotex.io/",
+    "create:iotex": "graph create mainnet/ins --node https://rpc.graph.mainnet.iotex.io/",
+    "deploy:iotex": "graph deploy --product hosted-service --node https://rpc.graph.mainnet.iotex.io/ --ipfs https://ipfs.mainnet.iotex.io mainnet/ins subgraph.yaml --network iotex",
+    "deploy:iotex_testnet": "graph deploy --product hosted-service --node https://rpc.graph.mainnet.iotex.io/ --ipfs https://ipfs.mainnet.iotex.io testnet/ins subgraph.yaml --network iotex_testnet"
   },
   "devDependencies": {
     "@ensdomains/content-hash": "^2.5.3",
