@@ -1,5 +1,5 @@
 // Import types and APIs from graph-ts
-import { BigInt, ByteArray, Bytes, crypto, ens } from "@graphprotocol/graph-ts";
+import { Address, BigInt, ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
 
 import {
   byteArrayFromHex,
@@ -32,6 +32,11 @@ import {
   Registration,
 } from "./types/schema";
 
+import {
+  NameWrapper
+} from "./types/NameWrapper/NameWrapper";
+import { NetworkConfigs } from "./config";
+
 const GRACE_PERIOD_SECONDS = BigInt.fromI32(7776000); // 90 days
 
 var rootNode: ByteArray = byteArrayFromHex(IO_NODE);
@@ -52,10 +57,11 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
   domain.registrant = account.id;
   domain.expiryDate = event.params.expires.plus(GRACE_PERIOD_SECONDS);
 
-  let labelName = ens.nameByHash(label.toHexString());
+  const nameWrapper = NameWrapper.bind(Address.fromString(NetworkConfigs.NAME_WRAPPER_ADDRESS));
+  let labelName = nameWrapper.names(Bytes.fromByteArray(label)).toString();
   if (labelName != null) {
     domain.labelName = labelName;
-    domain.name = labelName! + ".eth";
+    domain.name = labelName + ".io";
     registration.labelName = labelName;
   }
   domain.save();
@@ -94,7 +100,7 @@ function setNamePreimage(name: string, label: Bytes, cost: BigInt): void {
   let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex())!;
   if (domain.labelName !== name) {
     domain.labelName = name;
-    domain.name = name + ".eth";
+    domain.name = name + ".io";
     domain.save();
   }
 

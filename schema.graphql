@@ -1,7 +1,7 @@
 type Domain @entity {
   "The namehash of the name"
   id: ID!
-  "The human readable name, if known. Unknown portions replaced with hash in square brackets (eg, foo.[1234].eth)"
+  "The human readable name, if known. Unknown portions replaced with hash in square brackets (eg, foo.[1234].io)"
   name: String
   "The human readable label name (imported from CSV), if known"
   labelName: String
