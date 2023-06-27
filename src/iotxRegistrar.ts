@@ -1,5 +1,5 @@
 // Import types and APIs from graph-ts
-import { Address, BigInt, ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
+import { BigInt, ByteArray, Bytes, crypto } from "@graphprotocol/graph-ts";
 
 import {
   byteArrayFromHex,
@@ -7,6 +7,7 @@ import {
   concat,
   createEventID,
   IO_NODE,
+  nameByHash,
   uint256ToByteArray,
 } from "./utils";
 
@@ -32,11 +33,6 @@ import {
   Registration,
 } from "./types/schema";
 
-import {
-  NameWrapper
-} from "./types/NameWrapper/NameWrapper";
-import { NetworkConfigs } from "./config";
-
 const GRACE_PERIOD_SECONDS = BigInt.fromI32(7776000); // 90 days
 
 var rootNode: ByteArray = byteArrayFromHex(IO_NODE);
@@ -57,11 +53,10 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
   domain.registrant = account.id;
   domain.expiryDate = event.params.expires.plus(GRACE_PERIOD_SECONDS);
 
-  const nameWrapper = NameWrapper.bind(Address.fromString(NetworkConfigs.NAME_WRAPPER_ADDRESS));
-  let labelName = nameWrapper.names(Bytes.fromByteArray(label)).toString();
+  let labelName = nameByHash(Bytes.fromByteArray(label), false);
   if (labelName != null) {
     domain.labelName = labelName;
-    domain.name = labelName + ".io";
+    domain.name = labelName! + ".io";
     registration.labelName = labelName;
   }
   domain.save();

@@ -1,6 +1,8 @@
 // Import types and APIs from graph-ts
-import { BigInt, ByteArray, ethereum, log } from "@graphprotocol/graph-ts";
+import { Address, BigInt, ByteArray, Bytes, ethereum, log } from "@graphprotocol/graph-ts";
 import { Account, Domain } from "./types/schema";
+import { NameWrapper } from "./types/NameWrapper/NameWrapper";
+import { NetworkConfigs } from "./config";
 
 export function createEventID(event: ethereum.Event): string {
   return event.block.number
@@ -14,6 +16,23 @@ export const IO_NODE =
 export const ROOT_NODE =
   "0x0000000000000000000000000000000000000000000000000000000000000000";
 export const EMPTY_ADDRESS = "0x0000000000000000000000000000000000000000";
+
+export function nameByHash(lableHash: Bytes, registry: boolean): string | null {
+  if (registry) {
+    if (lableHash.toHex() == "0xdec08c9dbbdd0890e300eb5062089b2d4b1c40e3673bbccb5423f7b37dcf9a9c") {
+      return "reverse";
+    }
+    if (lableHash.toHex() == "0xe5e14487b78f85faa6e1808e89246cf57dd34831548ff2e6097380d98db2504a") {
+      return "addr";
+    }
+    if (lableHash.toHex() == "0x51143fc2477b19ad285ce702e5e9feb0f57c9cb4dbe9f081121e37c240ec6613") {
+      return "io";
+    }
+    return null;
+  }
+  const nameWrapper = NameWrapper.bind(Address.fromString(NetworkConfigs.NAME_WRAPPER_ADDRESS));
+  return nameWrapper.names(lableHash).toString();
+}
 
 // Helper for concatenating two byte arrays
 export function concat(a: ByteArray, b: ByteArray): ByteArray {

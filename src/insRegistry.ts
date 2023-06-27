@@ -1,7 +1,7 @@
 // Import types and APIs from graph-ts
-import { Address, BigInt, crypto } from "@graphprotocol/graph-ts";
+import { BigInt, crypto } from "@graphprotocol/graph-ts";
 
-import { concat, createEventID, EMPTY_ADDRESS, ROOT_NODE } from "./utils";
+import { concat, createEventID, EMPTY_ADDRESS, nameByHash, ROOT_NODE } from "./utils";
 
 // Import event types from the registry contract ABI
 import {
@@ -10,11 +10,6 @@ import {
   NewTTL as NewTTLEvent,
   Transfer as TransferEvent,
 } from "./types/INSRegistry/INSRegistry";
-
-import {
-  NameWrapper
-} from "./types/NameWrapper/NameWrapper";
-import { NetworkConfigs } from "./config";
 
 // Import entity types generated from the GraphQL schema
 import {
@@ -106,9 +101,8 @@ function _handleNewOwner(event: NewOwnerEvent, isMigrated: boolean): void {
   }
 
   if (domain.name == null) {
-    const nameWrapper = NameWrapper.bind(Address.fromString(NetworkConfigs.NAME_WRAPPER_ADDRESS));
     // Get label and node names
-    let label = nameWrapper.names(event.params.label).toString();
+    let label = nameByHash(event.params.label, true);
     if (label != null) {
       domain.labelName = label;
     }
